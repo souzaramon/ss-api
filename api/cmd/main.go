@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api/internal/authors"
 	"context"
 	"net"
 	"net/http"
@@ -19,6 +20,7 @@ func main() {
 			NewGinApp,
 			zap.NewProduction,
 		),
+		authors.Module,
 		fx.Invoke(func(*gin.Engine) {}),
 	).Run()
 }
