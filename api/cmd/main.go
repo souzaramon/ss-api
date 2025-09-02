@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"go.uber.org/fx"
+	"go.uber.org/zap"
+)
 
 func main() {
-	fmt.Println("hello world")
+	fx.New(
+		fx.Provide(
+			zap.NewProduction,
+		),
+	).Run()
 }
