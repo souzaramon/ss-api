@@ -1,0 +1,274 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "SS API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/v1",
+    "paths": {
+        "/authors/": {
+            "get": {
+                "description": "Get a list of all authors",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authors"
+                ],
+                "summary": "List all authors",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/authors.Author"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new author",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authors"
+                ],
+                "summary": "Create author",
+                "parameters": [
+                    {
+                        "description": "Author data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/authors.CreateAuthorDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authors.Author"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            }
+        },
+        "/authors/{id}": {
+            "get": {
+                "description": "Retrieve a single author by their ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authors"
+                ],
+                "summary": "Get author by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authors.Author"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update an existing author by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authors"
+                ],
+                "summary": "Update author",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Author data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/authors.UpdateAuthorDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/authors.Author"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete an existing author by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "authors"
+                ],
+                "summary": "Delete author",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "authors.Author": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string",
+                    "example": "998th Lord Commander of the Night's Watch"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "28487cdf-6694-4efb-9916-c0d5f596ed06"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Jon Snow"
+                }
+            }
+        },
+        "authors.CreateAuthorDto": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "bio": {
+                    "type": "string",
+                    "example": "998th Lord Commander of the Night's Watch"
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "Jon Snow"
+                }
+            }
+        },
+        "authors.UpdateAuthorDto": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string",
+                    "example": "King Aegon of Houses Targaryen and Stark"
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "Aegon Targaryen"
+                }
+            }
+        },
+        "util.ApiError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
