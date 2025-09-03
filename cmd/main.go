@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "api/docs"
 	"api/internal/authors"
 	"context"
 	"log"
@@ -12,8 +11,6 @@ import (
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -41,8 +38,6 @@ func NewGinApp(lc fx.Lifecycle, log *zap.Logger) *gin.Engine {
 
 	g.Use(ginzap.Ginzap(log, time.RFC3339, true))
 	g.Use(ginzap.RecoveryWithZap(log, true))
-
-	g.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	server := &http.Server{Addr: ":8080", Handler: g}
 
