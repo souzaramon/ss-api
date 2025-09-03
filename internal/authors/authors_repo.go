@@ -49,7 +49,7 @@ func (r *AuthorsRepository) UpdateById(id string, dto UpdateAuthorDto) (Author, 
 		UPDATE authors
     SET
 				name = coalesce($2, name),
-				bio = coalesce($3, bio)
+				bio  = coalesce($3, bio)
     WHERE id = $1
     RETURNING id, name, bio;
 	`
