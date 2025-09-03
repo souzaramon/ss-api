@@ -12,6 +12,6 @@ type CreateAuthorDto struct {
 }
 
 type UpdateAuthorDto struct {
-	Name *string `json:"name"`
-	Bio  *string `json:"bio"`
+	Name string `json:"name"`
+	Bio  string `json:"bio"`
 }

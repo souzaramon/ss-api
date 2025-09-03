@@ -48,8 +48,8 @@ func (r *AuthorsRepository) UpdateById(id string, dto UpdateAuthorDto) (Author, 
 	sql := `
 		UPDATE authors
     SET
-        name = CASE WHEN $2 THEN $3 ELSE name END,
-				bio = CASE WHEN $4 THEN $5 ELSE bio END
+				name = coalesce($2, name),
+				bio = coalesce($3, bio)
     WHERE id = $1
     RETURNING id, name, bio;
 	`
@@ -61,9 +61,7 @@ func (r *AuthorsRepository) UpdateById(id string, dto UpdateAuthorDto) (Author, 
 		&item,
 		sql,
 		id,
-		dto.Name != nil,
 		dto.Name,
-		dto.Bio != nil,
 		dto.Bio,
 	)
 

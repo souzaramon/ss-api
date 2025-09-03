@@ -1,7 +1,6 @@
 package authors
 
 import (
-	"api/pkg/util"
 	"errors"
 	"net/http"
 
@@ -71,11 +70,6 @@ func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	if util.IsEmptyStruct(body) {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No fields to update"})
 		return
 	}
 
