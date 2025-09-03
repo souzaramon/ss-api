@@ -36,19 +36,36 @@ func (r *AuthorsRepository) FindById(id string) (Author, error) {
 }
 
 func (r *AuthorsRepository) Create(dto CreateAuthorDto) (Author, error) {
-	sql := `INSERT INTO authors (name) VALUES ($1) RETURNING id, name`
+	sql := `INSERT INTO authors (name, bio) VALUES ($1, $2) RETURNING id, name, bio`
 
 	var item Author
-	err := pgxscan.Get(context.Background(), r.conn, &item, sql, dto.Name)
+	err := pgxscan.Get(context.Background(), r.conn, &item, sql, dto.Name, dto.Bio)
 
 	return item, err
 }
 
-func (r *AuthorsRepository) UpdateById(id string, dto CreateAuthorDto) (Author, error) {
-	sql := `UPDATE authors SET name = $2 WHERE id = $1 RETURNING id, name`
+func (r *AuthorsRepository) UpdateById(id string, dto UpdateAuthorDto) (Author, error) {
+	sql := `
+		UPDATE authors
+    SET
+        name = CASE WHEN $2 THEN $3 ELSE name END,
+				bio = CASE WHEN $4 THEN $5 ELSE bio END
+    WHERE id = $1
+    RETURNING id, name, bio;
+	`
 
 	var item Author
-	err := pgxscan.Get(context.Background(), r.conn, &item, sql, id, dto.Name)
+	err := pgxscan.Get(
+		context.Background(),
+		r.conn,
+		&item,
+		sql,
+		id,
+		dto.Name != nil,
+		dto.Name,
+		dto.Bio != nil,
+		dto.Bio,
+	)
 
 	return item, err
 }
