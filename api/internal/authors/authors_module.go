@@ -11,7 +11,7 @@ var Module = fx.Options(
 		NewAuthorsRepository,
 	),
 	fx.Invoke(func(e *gin.Engine, h *AuthorsHandler) {
-		g := e.Group("/authors")
+		g := e.Group("/v1/authors")
 
 		g.GET("/", h.GetAll)
 		g.GET("/:id", h.GetById)
