@@ -3,6 +3,7 @@ package main
 import (
 	"api/internal/authors"
 	"context"
+	"log"
 	"net"
 	"net/http"
 	"time"
@@ -12,12 +13,15 @@ import (
 
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
+
+	"github.com/jackc/pgx/v5"
 )
 
 func main() {
 	fx.New(
 		fx.Provide(
 			NewGinApp,
+			NewPgxConn,
 			zap.NewProduction,
 		),
 		authors.Module,
@@ -47,7 +51,6 @@ func NewGinApp(lc fx.Lifecycle, log *zap.Logger) *gin.Engine {
 			log.Info("Starting HTTP server", zap.String("addr", server.Addr))
 
 			return nil
-
 		},
 		OnStop: func(ctx context.Context) error {
 			return server.Shutdown(ctx)
@@ -55,4 +58,23 @@ func NewGinApp(lc fx.Lifecycle, log *zap.Logger) *gin.Engine {
 	})
 
 	return g
+}
+
+func NewPgxConn(lc fx.Lifecycle) (*pgx.Conn, error) {
+	ctx := context.Background()
+	conn, err := pgx.Connect(ctx, "postgres://postgres:123@db:5432/test")
+
+	if err != nil {
+		log.Printf("Unable to connect to database: %v\n", err)
+		return nil, err
+	}
+
+	lc.Append(fx.Hook{
+		OnStop: func(ctx context.Context) error {
+			conn.Close(ctx)
+			return nil
+		},
+	})
+
+	return conn, nil
 }
