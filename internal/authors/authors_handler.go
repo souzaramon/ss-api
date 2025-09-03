@@ -1,9 +1,10 @@
 package authors
 
 import (
-	"api/pkg/util"
 	"errors"
 	"net/http"
+
+	"ss-api/pkg/util"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5"

@@ -1,12 +1,13 @@
 package main
 
 import (
-	"api/internal/authors"
 	"context"
 	"log"
 	"net"
 	"net/http"
 	"time"
+
+	"ss-api/internal/authors"
 
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
