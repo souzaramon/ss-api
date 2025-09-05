@@ -6,6 +6,9 @@ services:
     ports:
       - "8080:8080"
     command: ./api
+    environment:
+      API_ADDRESS: ":8080"
+      DB_SOURCE: postgres://postgres:123@db:5432/test
     depends_on:
       - db
 

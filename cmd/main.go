@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	"ss-api/config"
 	"ss-api/internal/authors"
 
 	ginzap "github.com/gin-contrib/zap"
@@ -23,6 +24,7 @@ import (
 func main() {
 	fx.New(
 		fx.Provide(
+			config.NewConfig,
 			NewGinApp,
 			NewPgxConn,
 			zap.NewProduction,
@@ -32,7 +34,7 @@ func main() {
 	).Run()
 }
 
-func NewGinApp(lc fx.Lifecycle, log *zap.Logger) *gin.Engine {
+func NewGinApp(lc fx.Lifecycle, log *zap.Logger, c *config.Config) *gin.Engine {
 	g := gin.New()
 
 	g.RedirectTrailingSlash = false
@@ -40,7 +42,7 @@ func NewGinApp(lc fx.Lifecycle, log *zap.Logger) *gin.Engine {
 	g.Use(ginzap.Ginzap(log, time.RFC3339, true))
 	g.Use(ginzap.RecoveryWithZap(log, true))
 
-	server := &http.Server{Addr: ":8080", Handler: g}
+	server := &http.Server{Addr: c.ApiAddress, Handler: g}
 
 	lc.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
@@ -63,9 +65,9 @@ func NewGinApp(lc fx.Lifecycle, log *zap.Logger) *gin.Engine {
 	return g
 }
 
-func NewPgxConn(lc fx.Lifecycle) (*pgx.Conn, error) {
+func NewPgxConn(lc fx.Lifecycle, c *config.Config) (*pgx.Conn, error) {
 	ctx := context.Background()
-	conn, err := pgx.Connect(ctx, "postgres://postgres:123@db:5432/test")
+	conn, err := pgx.Connect(ctx, c.DBSource)
 
 	if err != nil {
 		log.Printf("Unable to connect to database: %v\n", err)
