@@ -29,6 +29,7 @@ func NewAuthorsHandler(log *zap.Logger, authorsRepository *AuthorsRepository) *A
 // @Success      200  {array}   Author
 // @Failure      500  {object}  util.ApiError
 // @Router       /authors/ [get]
+// @OperationId  getAll
 func (h *AuthorsHandler) GetAll(c *gin.Context) {
 	items, err := h.authorsRepository.FindAll()
 
@@ -51,6 +52,7 @@ func (h *AuthorsHandler) GetAll(c *gin.Context) {
 // @Failure      404  {object}  util.ApiError
 // @Failure      500  {object}  util.ApiError
 // @Router       /authors/{id} [get]
+// @OperationId  getById
 func (h *AuthorsHandler) GetById(c *gin.Context) {
 	id := c.Param("id")
 	item, err := h.authorsRepository.FindById(id)
@@ -79,6 +81,7 @@ func (h *AuthorsHandler) GetById(c *gin.Context) {
 // @Failure      400   {object}  util.ApiError
 // @Failure      500   {object}  util.ApiError
 // @Router       /authors/ [post]
+// @OperationId  create
 func (h *AuthorsHandler) Create(c *gin.Context) {
 	var body CreateAuthorDto
 
@@ -108,6 +111,7 @@ func (h *AuthorsHandler) Create(c *gin.Context) {
 // @Failure      400   {object}  util.ApiError
 // @Failure      500   {object}  util.ApiError
 // @Router       /authors/{id} [put]
+// @OperationId  updateById
 func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 	id := c.Param("id")
 
@@ -137,6 +141,7 @@ func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 // @Success      204  {object}  nil
 // @Failure      500  {object}  util.ApiError
 // @Router       /authors/{id} [delete]
+// @OperationId  deleteById
 func (h *AuthorsHandler) DeleteById(c *gin.Context) {
 	id := c.Param("id")
 
