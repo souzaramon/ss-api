@@ -21,6 +21,7 @@
                     "authors"
                 ],
                 "summary": "List all authors",
+                "operationId": "getAll",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -51,6 +52,7 @@
                     "authors"
                 ],
                 "summary": "Create author",
+                "operationId": "create",
                 "parameters": [
                     {
                         "description": "Author data",
@@ -97,6 +99,7 @@
                     "authors"
                 ],
                 "summary": "Get author by ID",
+                "operationId": "getById",
                 "parameters": [
                     {
                         "type": "string",
@@ -139,6 +142,7 @@
                     "authors"
                 ],
                 "summary": "Update author",
+                "operationId": "updateById",
                 "parameters": [
                     {
                         "type": "string",
@@ -190,6 +194,7 @@
                     "authors"
                 ],
                 "summary": "Delete author",
+                "operationId": "deleteById",
                 "parameters": [
                     {
                         "type": "string",
