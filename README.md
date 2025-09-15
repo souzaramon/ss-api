@@ -8,6 +8,6 @@
 
 ### API Client
 
-This repository provides a ready-to-use **HTTP client** for JavaScript and TypeScript that interacts with our API.  
+We provide a ready-to-use **HTTP client** for JavaScript and TypeScript that interacts with ss-api.  
 
 You can find it here: [ss-api-http-client](https://github.com/souzaramon/ss-api-http-client/)
