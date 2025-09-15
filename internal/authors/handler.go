@@ -20,7 +20,7 @@ func NewAuthorsHandler(log *zap.Logger, authorsRepository *AuthorsRepository) *A
 	return &AuthorsHandler{log: log, authorsRepository: authorsRepository}
 }
 
-// GetAll godoc
+// @Id           getAll
 // @Summary      List all authors
 // @Description  Get a list of all authors
 // @Tags         authors
@@ -29,7 +29,6 @@ func NewAuthorsHandler(log *zap.Logger, authorsRepository *AuthorsRepository) *A
 // @Success      200  {array}   Author
 // @Failure      500  {object}  util.ApiError
 // @Router       /authors/ [get]
-// @OperationId  getAll
 func (h *AuthorsHandler) GetAll(c *gin.Context) {
 	items, err := h.authorsRepository.FindAll()
 
@@ -41,7 +40,7 @@ func (h *AuthorsHandler) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, items)
 }
 
-// GetById godoc
+// @Id           getById
 // @Summary      Get author by ID
 // @Description  Retrieve a single author by their ID
 // @Tags         authors
@@ -52,7 +51,6 @@ func (h *AuthorsHandler) GetAll(c *gin.Context) {
 // @Failure      404  {object}  util.ApiError
 // @Failure      500  {object}  util.ApiError
 // @Router       /authors/{id} [get]
-// @OperationId  getById
 func (h *AuthorsHandler) GetById(c *gin.Context) {
 	id := c.Param("id")
 	item, err := h.authorsRepository.FindById(id)
@@ -70,7 +68,7 @@ func (h *AuthorsHandler) GetById(c *gin.Context) {
 	c.JSON(http.StatusOK, item)
 }
 
-// Create godoc
+// @Id           create
 // @Summary      Create author
 // @Description  Create a new author
 // @Tags         authors
@@ -81,7 +79,6 @@ func (h *AuthorsHandler) GetById(c *gin.Context) {
 // @Failure      400   {object}  util.ApiError
 // @Failure      500   {object}  util.ApiError
 // @Router       /authors/ [post]
-// @OperationId  create
 func (h *AuthorsHandler) Create(c *gin.Context) {
 	var body CreateAuthorDto
 
@@ -99,7 +96,7 @@ func (h *AuthorsHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, item)
 }
 
-// UpdateById godoc
+// @Id           updateById
 // @Summary      Update author
 // @Description  Update an existing author by ID
 // @Tags         authors
@@ -111,7 +108,6 @@ func (h *AuthorsHandler) Create(c *gin.Context) {
 // @Failure      400   {object}  util.ApiError
 // @Failure      500   {object}  util.ApiError
 // @Router       /authors/{id} [put]
-// @OperationId  updateById
 func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 	id := c.Param("id")
 
@@ -131,7 +127,7 @@ func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 	c.JSON(http.StatusCreated, item)
 }
 
-// DeleteById godoc
+// @Id           deleteById
 // @Summary      Delete author
 // @Description  Delete an existing author by ID
 // @Tags         authors
@@ -141,7 +137,6 @@ func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 // @Success      204  {object}  nil
 // @Failure      500  {object}  util.ApiError
 // @Router       /authors/{id} [delete]
-// @OperationId  deleteById
 func (h *AuthorsHandler) DeleteById(c *gin.Context) {
 	id := c.Param("id")
 
