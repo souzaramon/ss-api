@@ -84,7 +84,7 @@ paths:
       consumes:
       - application/json
       description: Get a list of all authors
-      operationId: getAll
+      operationId: getAllAuthors
       produces:
       - application/json
       responses:
@@ -105,7 +105,7 @@ paths:
       consumes:
       - application/json
       description: Create a new author
-      operationId: create
+      operationId: createAuthor
       parameters:
       - description: Author data
         in: body
@@ -136,7 +136,7 @@ paths:
       consumes:
       - application/json
       description: Delete an existing author by ID
-      operationId: deleteById
+      operationId: deleteAuthorById
       parameters:
       - description: Author ID
         in: path
@@ -159,7 +159,7 @@ paths:
       consumes:
       - application/json
       description: Retrieve a single author by their ID
-      operationId: getById
+      operationId: getAuthorById
       parameters:
       - description: Author ID
         in: path
@@ -188,7 +188,7 @@ paths:
       consumes:
       - application/json
       description: Update an existing author by ID
-      operationId: updateById
+      operationId: updateAuthorById
       parameters:
       - description: Author ID
         in: path
@@ -224,7 +224,7 @@ paths:
       consumes:
       - application/json
       description: Get a list of all titles
-      operationId: getAll
+      operationId: getAllTitles
       produces:
       - application/json
       responses:
@@ -245,7 +245,7 @@ paths:
       consumes:
       - application/json
       description: Create a new title
-      operationId: create
+      operationId: createTitle
       parameters:
       - description: Title data
         in: body
@@ -276,7 +276,7 @@ paths:
       consumes:
       - application/json
       description: Delete an existing title by ID
-      operationId: deleteById
+      operationId: deleteTitleById
       parameters:
       - description: Title ID
         in: path
@@ -299,7 +299,7 @@ paths:
       consumes:
       - application/json
       description: Retrieve a single title by their ID
-      operationId: getById
+      operationId: getTitleById
       parameters:
       - description: Title ID
         in: path
@@ -328,7 +328,7 @@ paths:
       consumes:
       - application/json
       description: Update an existing title by ID
-      operationId: updateById
+      operationId: updateTitleById
       parameters:
       - description: Title ID
         in: path

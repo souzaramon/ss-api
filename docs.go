@@ -28,7 +28,7 @@ const docTemplate = `{
                     "authors"
                 ],
                 "summary": "List all authors",
-                "operationId": "getAll",
+                "operationId": "getAllAuthors",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -59,7 +59,7 @@ const docTemplate = `{
                     "authors"
                 ],
                 "summary": "Create author",
-                "operationId": "create",
+                "operationId": "createAuthor",
                 "parameters": [
                     {
                         "description": "Author data",
@@ -106,7 +106,7 @@ const docTemplate = `{
                     "authors"
                 ],
                 "summary": "Get author by ID",
-                "operationId": "getById",
+                "operationId": "getAuthorById",
                 "parameters": [
                     {
                         "type": "string",
@@ -149,7 +149,7 @@ const docTemplate = `{
                     "authors"
                 ],
                 "summary": "Update author",
-                "operationId": "updateById",
+                "operationId": "updateAuthorById",
                 "parameters": [
                     {
                         "type": "string",
@@ -201,7 +201,7 @@ const docTemplate = `{
                     "authors"
                 ],
                 "summary": "Delete author",
-                "operationId": "deleteById",
+                "operationId": "deleteAuthorById",
                 "parameters": [
                     {
                         "type": "string",
@@ -237,7 +237,7 @@ const docTemplate = `{
                     "titles"
                 ],
                 "summary": "List all titles",
-                "operationId": "getAll",
+                "operationId": "getAllTitles",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -268,7 +268,7 @@ const docTemplate = `{
                     "titles"
                 ],
                 "summary": "Create title",
-                "operationId": "create",
+                "operationId": "createTitle",
                 "parameters": [
                     {
                         "description": "Title data",
@@ -315,7 +315,7 @@ const docTemplate = `{
                     "titles"
                 ],
                 "summary": "Get title by ID",
-                "operationId": "getById",
+                "operationId": "getTitleById",
                 "parameters": [
                     {
                         "type": "string",
@@ -358,7 +358,7 @@ const docTemplate = `{
                     "titles"
                 ],
                 "summary": "Update title",
-                "operationId": "updateById",
+                "operationId": "updateTitleById",
                 "parameters": [
                     {
                         "type": "string",
@@ -410,7 +410,7 @@ const docTemplate = `{
                     "titles"
                 ],
                 "summary": "Delete title",
-                "operationId": "deleteById",
+                "operationId": "deleteTitleById",
                 "parameters": [
                     {
                         "type": "string",
