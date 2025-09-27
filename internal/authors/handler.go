@@ -7,7 +7,6 @@ import (
 	"ss-api/pkg/util"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jackc/pgx/v5"
 	"go.uber.org/zap"
 )
 
@@ -56,7 +55,7 @@ func (h *AuthorsHandler) GetById(c *gin.Context) {
 	item, err := h.authorsRepository.FindById(id)
 
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
+		if errors.Is(err, util.ErrNotFound) {
 			c.JSON(http.StatusNotFound, util.ApiError{Message: "Item not found"})
 			return
 		}

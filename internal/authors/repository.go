@@ -2,10 +2,14 @@ package authors
 
 import (
 	"context"
+	"errors"
+	"fmt"
 
 	"github.com/georgysavva/scany/v2/pgxscan"
 	"github.com/jackc/pgx/v5"
 	"go.uber.org/zap"
+
+	"ss-api/pkg/util"
 )
 
 type AuthorsRepository struct {
@@ -31,6 +35,10 @@ func (r *AuthorsRepository) FindById(id string) (Author, error) {
 
 	var item Author
 	err := pgxscan.Get(context.Background(), r.conn, &item, sql, id)
+
+	if errors.Is(err, pgx.ErrNoRows) {
+		return Author{}, fmt.Errorf("find author by id %s: %w", id, util.ErrNotFound)
+	}
 
 	return item, err
 }
