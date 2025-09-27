@@ -1,0 +1,188 @@
+basePath: /v1
+definitions:
+  authors.Author:
+    properties:
+      bio:
+        example: 998th Lord Commander of the Night's Watch
+        type: string
+      id:
+        example: 28487cdf-6694-4efb-9916-c0d5f596ed06
+        type: string
+      name:
+        example: Jon Snow
+        type: string
+    type: object
+  authors.CreateAuthorDto:
+    properties:
+      bio:
+        example: 998th Lord Commander of the Night's Watch
+        type: string
+      name:
+        example: Jon Snow
+        minLength: 2
+        type: string
+    required:
+    - name
+    type: object
+  authors.UpdateAuthorDto:
+    properties:
+      bio:
+        example: King Aegon of Houses Targaryen and Stark
+        type: string
+      name:
+        example: Aegon Targaryen
+        minLength: 2
+        type: string
+    type: object
+  util.ApiError:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: SS API
+  version: "1.0"
+paths:
+  /authors/:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all authors
+      operationId: getAll
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/authors.Author'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.ApiError'
+      summary: List all authors
+      tags:
+      - authors
+    post:
+      consumes:
+      - application/json
+      description: Create a new author
+      operationId: create
+      parameters:
+      - description: Author data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/authors.CreateAuthorDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authors.Author'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ApiError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.ApiError'
+      summary: Create author
+      tags:
+      - authors
+  /authors/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing author by ID
+      operationId: deleteById
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.ApiError'
+      summary: Delete author
+      tags:
+      - authors
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a single author by their ID
+      operationId: getById
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authors.Author'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.ApiError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.ApiError'
+      summary: Get author by ID
+      tags:
+      - authors
+    put:
+      consumes:
+      - application/json
+      description: Update an existing author by ID
+      operationId: updateById
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Author data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/authors.UpdateAuthorDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/authors.Author'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ApiError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.ApiError'
+      summary: Update author
+      tags:
+      - authors
+swagger: "2.0"
