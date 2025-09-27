@@ -216,6 +216,215 @@
                     }
                 }
             }
+        },
+        "/titles/": {
+            "get": {
+                "description": "Get a list of all titles",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "titles"
+                ],
+                "summary": "List all titles",
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/titles.Title"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new title",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "titles"
+                ],
+                "summary": "Create title",
+                "operationId": "create",
+                "parameters": [
+                    {
+                        "description": "Title data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/titles.CreateTitleDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/titles.Title"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            }
+        },
+        "/titles/{id}": {
+            "get": {
+                "description": "Retrieve a single title by their ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "titles"
+                ],
+                "summary": "Get title by ID",
+                "operationId": "getById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Title ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/titles.Title"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update an existing title by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "titles"
+                ],
+                "summary": "Update title",
+                "operationId": "updateById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Title ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Title data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/titles.UpdateTitleDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/titles.Title"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete an existing title by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "titles"
+                ],
+                "summary": "Delete title",
+                "operationId": "deleteById",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Title ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/util.ApiError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -264,6 +473,54 @@
                     "type": "string",
                     "minLength": 2,
                     "example": "Aegon Targaryen"
+                }
+            }
+        },
+        "titles.CreateTitleDto": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "id_author": {
+                    "type": "string",
+                    "example": "28487cdf-6694-4efb-9916-c0d5f596ed06"
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "Lord of Mysteries"
+                }
+            }
+        },
+        "titles.Title": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "28487cdf-6694-4efb-9916-c0d5f596ed06"
+                },
+                "id_author": {
+                    "type": "string",
+                    "example": "28487cdf-6694-4efb-9916-c0d5f596ed06"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Lord of Mysteries"
+                }
+            }
+        },
+        "titles.UpdateTitleDto": {
+            "type": "object",
+            "properties": {
+                "id_author": {
+                    "type": "string",
+                    "example": "28487cdf-6694-4efb-9916-c0d5f596ed06"
+                },
+                "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "example": "Circle of Inevitably"
                 }
             }
         },
