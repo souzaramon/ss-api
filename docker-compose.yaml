@@ -22,6 +22,7 @@ services:
       - source: init.sql
         target: /docker-entrypoint-initdb.d/init.sql
     environment:
+      POSTGRES_DB: ss_api
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
 
@@ -34,16 +35,6 @@ services:
 configs:
   init.sql:
     content: |
-      CREATE DATABASE test;
-
-      \c test;
-
       CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-      CREATE TABLE authors (
-        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-        name VARCHAR(255) NOT NULL,
-        bio TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP      
-      )
+      CREATE SCHEMA IF NOT EXISTS custom;

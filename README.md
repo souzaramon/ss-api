@@ -6,6 +6,12 @@
 
 # ss-api
 
+### Tools
+```sh
+# https://github.com/pressly/goose
+go install github.com/pressly/goose/v3/cmd/goose@latest
+```
+
 ### API Client
 
 We provide a ready-to-use **HTTP client** for JavaScript and TypeScript that interacts with ss-api.  
