@@ -9,6 +9,7 @@ import (
 
 	"ss-api/config"
 	"ss-api/internal/authors"
+	"ss-api/internal/titles"
 
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
@@ -30,6 +31,7 @@ func main() {
 			zap.NewProduction,
 		),
 		authors.Module,
+		titles.Module,
 		fx.Invoke(func(*gin.Engine) {}),
 	).Run()
 }

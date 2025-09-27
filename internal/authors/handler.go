@@ -19,7 +19,7 @@ func NewAuthorsHandler(log *zap.Logger, authorsRepository *AuthorsRepository) *A
 	return &AuthorsHandler{log: log, authorsRepository: authorsRepository}
 }
 
-// @Id           getAll
+// @Id           getAllAuthors
 // @Summary      List all authors
 // @Description  Get a list of all authors
 // @Tags         authors
@@ -39,7 +39,7 @@ func (h *AuthorsHandler) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, items)
 }
 
-// @Id           getById
+// @Id           getAuthorById
 // @Summary      Get author by ID
 // @Description  Retrieve a single author by their ID
 // @Tags         authors
@@ -67,7 +67,7 @@ func (h *AuthorsHandler) GetById(c *gin.Context) {
 	c.JSON(http.StatusOK, item)
 }
 
-// @Id           create
+// @Id           createAuthor
 // @Summary      Create author
 // @Description  Create a new author
 // @Tags         authors
@@ -95,7 +95,7 @@ func (h *AuthorsHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, item)
 }
 
-// @Id           updateById
+// @Id           updateAuthorById
 // @Summary      Update author
 // @Description  Update an existing author by ID
 // @Tags         authors
@@ -126,7 +126,7 @@ func (h *AuthorsHandler) UpdateById(c *gin.Context) {
 	c.JSON(http.StatusCreated, item)
 }
 
-// @Id           deleteById
+// @Id           deleteAuthorById
 // @Summary      Delete author
 // @Description  Delete an existing author by ID
 // @Tags         authors
